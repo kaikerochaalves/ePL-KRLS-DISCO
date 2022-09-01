@@ -2,7 +2,7 @@
 
 The evolving Participatory Learning with Kernel Recursive Least Square and Distance Correlation (ePL-KRLS-DISCO) is a forecasting model classified as a rule-based evolving Fuzzy System (eFS) proposed by Alves et al. [1].
 
-The paper [2] has a complete review of the eFSs.
+The paper [1] has a complete review of the eFSs.
 
 ePL_KRLS_DISCO.py (https://github.com/kaikerochaalves/ePL-KRLS-DISCO/blob/fcab6a363f1c6205daa0ea005456a449035a82ca/ePL_KRLS_DISCO.py) is the ePL-KRLS-DISCO model.
 MackeyGlass.py (https://github.com/kaikerochaalves/ePL-KRLS-DISCO/blob/fcab6a363f1c6205daa0ea005456a449035a82ca/MackeyGlass.py) is the script to prepare the Mackey-Glass time series, perform simulations, compute the results and plot the graphics.
