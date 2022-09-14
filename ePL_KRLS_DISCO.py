@@ -119,21 +119,7 @@ class ePL_KRLS_DISCO:
         self.parameters.at[i, 'OldCenter'] = self.parameters.loc[i, 'Center']
         # Update the cluster center
         self.parameters.at[i, 'Center'] = self.parameters.loc[i, 'Center'] + (self.hyperparameters.loc[0, 'alpha'] * (self.parameters.loc[i, 'CompatibilityMeasure'])**(1 - self.parameters.loc[i, 'ArousalIndex'])) * (x - self.parameters.loc[i, 'Center'])
-            
-    def mu(self, x1, x2, row, j):
-        mu = math.exp( - ( x1 - x2 ) ** 2 / ( 2 * self.parameters.loc[row, 'sigma'][j,0] ** 2 ) )
-        return mu
-    
-    def tau(self, x):
-        for row in self.parameters.index:
-            tau = 1
-            for j in range(x.shape[0]):
-                tau = tau * self.mu(x[j], self.parameters.loc[row, 'Center'][j,0], row, j)
-            # Evoid mtau with values zero
-            if abs(tau) < (10 ** -100):
-                tau = (10 ** -100)
-            self.parameters.at[row, 'tau'] = tau
-            
+                       
     def Lambda(self, x):
         for row in self.parameters.index:
             self.parameters.at[row, 'lambda'] = self.parameters.loc[row, 'tau'] / sum(self.parameters['tau'])
