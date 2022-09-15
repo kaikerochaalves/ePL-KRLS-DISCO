@@ -152,9 +152,9 @@ class ePL_KRLS_DISCO:
         z = np.matmul(self.parameters.loc[i, 'Q'], g)
         Z = z.reshape(z.shape[0],1)
         # Computing r
-        r = self.hyperparameters.loc[0, 'lambda1'] + 1 - np.matmul(Z.T, g)
-        if r == 0:
-            r = self.hyperparameters.loc[0, 'lambda1']
+        r = self.hyperparameters.loc[0, 'lambda1'] + 1 - np.matmul(Z.T, g).item()
+        # if r == 0:
+        #     r = self.hyperparameters.loc[0, 'lambda1']
         # Estimating the error
         EstimatedError = y - np.matmul(G.T, self.parameters.loc[i, 'Theta'])
         # Searching for the lowest distance between the input and the dictionary inputs
