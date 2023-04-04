@@ -35,6 +35,7 @@ class ePL_KRLS_DISCO:
         x = X[0,].reshape((1,-1)).T
         # Initialize the first rule
         self.Initialize_First_Cluster(x, y[0])
+        #self.epsilon.append(math.exp(-0.5))
         for k in range(1, X.shape[0]):
             # Prepare the k-th input vector
             x = X[k,].reshape((1,-1)).T
@@ -47,7 +48,7 @@ class ePL_KRLS_DISCO:
             # Find the maximum compatibility measure
             MaxIndexCompatibility = self.parameters['CompatibilityMeasure'].astype('float64').idxmax()
             # Verifying the needing to creating a new rule
-            if self.parameters.loc[MinIndexArousal, 'ArousalIndex'] > self.hyperparameters.loc[0, 'tau'] and self.ExcludedRule == 0:
+            if self.parameters.loc[MinIndexArousal, 'ArousalIndex'] > self.hyperparameters.loc[0, 'tau'] and self.ExcludedRule == 0 and self.epsilon != []:
                 self.Initialize_Cluster(x, y[k], k+1, MaxIndexCompatibility)
             else:
                 self.Rule_Update(x, y[k], MaxIndexCompatibility)
@@ -65,7 +66,19 @@ class ePL_KRLS_DISCO:
             self.OutputTrainingPhase = np.append(self.OutputTrainingPhase, Output)
             self.ResidualTrainingPhase = np.append(self.ResidualTrainingPhase,(Output - y[k])**2)
             # Updating epsilon and e_til
-            self.epsilon.append(math.exp(-0.5) * (2/(math.exp(-0.8 * self.eTil[-1] - abs(Output - y[k]))) - 1))
+            quociente = math.exp(-0.8 * self.eTil[-1] - abs(Output - y[k]))
+            #epsilon = ( math.exp(-0.5) * (2/(math.exp(-0.8 * self.eTil[-1] - abs(Output - y[k]))) - 1) )
+            if quociente == 0:
+                self.epsilon.append(max(self.epsilon))
+            else:
+                epsilon = ( math.exp(-0.5) * (2/(math.exp(-0.8 * self.eTil[-1] - abs(Output - y[k]))) - 1) )
+                if epsilon >= 1. and len(self.epsilon) != 0:
+                    self.epsilon.append(max(self.epsilon))
+                elif epsilon >= 1.:
+                    self.epsilon.append(0.8)
+                else:
+                    epsilon = ( math.exp(-0.5) * (2/(math.exp(-0.8 * self.eTil[-1] - abs(Output - y[k]))) - 1) )
+                    self.epsilon.append(epsilon)
             self.eTil.append(0.8 * self.eTil[-1] + abs(Output - y[k]))
         return self.OutputTrainingPhase, self.rules
             
