@@ -26,4 +26,4 @@ The paper [1] has a complete review of the eFSs.
 
 - PowerTransformerAllDays.py (https://github.com/kaikerochaalves/ePL-KRLS-DISCO/blob/45a6909cc5300cc16cb0280e157ce351704c4b3d/PowerTransformerAllDays.py) is the script to prepare the dataset of the power transformers on day 1 to train the model, and days 2 and 3 to perform simulations, compute the results and plot the graphics.
 
-[1] K.S.T.R. Alves, E. P. Aguiar, A novel rule-based evolving Fuzzy System applied to the thermal modeling of power transformers. Appl. Soft Comput. 112 (2021) 107764-107764, https://doi.org/10.1016/j.asoc.2021.
+[1] K.S.T.R. Alves, E. P. Aguiar, A novel rule-based evolving Fuzzy System applied to the thermal modeling of power transformers. Appl. Soft Comput. 112 (2021) 107764-107764, https://doi.org/10.1016/j.asoc.2021.107764.
